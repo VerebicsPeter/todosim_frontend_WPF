@@ -6,8 +6,4 @@
     <UseWPF>true</UseWPF>
 	<RootNamespace>Game.WPF</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    
-  </ItemGroup>
 </Project>

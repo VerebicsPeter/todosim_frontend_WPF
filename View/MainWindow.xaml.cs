@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Game.WPF
+namespace Game.WPF.View
 {
     public partial class MainWindow : Window
     {

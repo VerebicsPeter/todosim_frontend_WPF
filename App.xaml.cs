@@ -2,6 +2,7 @@
 using System.Windows;
 using System.ComponentModel;
 using Game.WPF.GameViewModels;
+using Game.WPF.View;
 
 namespace Game.WPF
 {
