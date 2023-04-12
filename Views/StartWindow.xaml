@@ -1,11 +1,11 @@
-﻿<Window x:Class="Game.WPF.View.Window1"
+﻿<Window x:Class="Game.WPF.Views.StartWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Game.WPF.View"
+        xmlns:local="clr-namespace:Game.WPF.Views"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="StartWindow" Height="450" Width="800">
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Game">
@@ -33,13 +33,14 @@
             </MenuItem>
         </Menu>
 
-        
-            <StackPanel VerticalAlignment="Center" >
+
+        <StackPanel VerticalAlignment="Center" >
             <TextBlock HorizontalAlignment="Center">TO-DO SIM</TextBlock>
             <Button x:Name="Start" Height="40" Width="120" Content="Start" Click="Click_start"/>
-                <Button x:Name="Settings" Height="40" Width="120" Content="Settings"/>
-                <Button x:Name="Exit" Height="40" Width="120" Content="Exit Game"/>
-            </StackPanel>
-        
+            <Button x:Name="Settings" Height="40" Width="120" Content="Settings"/>
+            <Button x:Name="Exit" Height="40" Width="120" Content="Exit Game"/>
+        </StackPanel>
+
     </DockPanel>
+
 </Window>

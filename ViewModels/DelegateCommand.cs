@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Game.WPF.GameViewModels
+namespace Game.WPF.ViewModels
 {
     public class DelegateCommand : ICommand
     {

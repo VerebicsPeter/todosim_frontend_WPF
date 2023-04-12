@@ -1,16 +1,22 @@
-﻿using System;
-using System.Windows;
+﻿using Game.WPF.Views;
+using Game.WPF.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using Game.WPF.GameViewModels;
-using Game.WPF.View;
+using System.Configuration;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Game.WPF
 {
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
     public partial class App : Application
     {
         // TODO: private fields: views, viewmodels timers etc.
 
-        private MainWindow _view = null!;
+        private StartWindow _view = null!;
 
         public App()
         {
@@ -19,9 +25,9 @@ namespace Game.WPF
 
         private void App_Startup(object? sender, StartupEventArgs e)
         {
-            _view = new MainWindow();
+            _view = new StartWindow();
             //_view.DataContext = _viewModel; // TODO
-            _view.Closing += new CancelEventHandler(View_Closing); // eseménykezelés a bezáráshoz
+            //_view.Closing += new CancelEventHandler(View_Closing); // eseménykezelés a bezáráshoz
             _view.Show();
         }
 
@@ -36,7 +42,7 @@ namespace Game.WPF
         {
             throw new NotImplementedException();
         }
-        
+
 
         // TODO: View Model Event Handlers
     }
