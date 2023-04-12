@@ -12,6 +12,10 @@ namespace Game.WPF.ViewModels
     {
         public const int Size = 50;
 
+        private readonly int[] small  = { 0, 1, 2 };          // 1x1 - roads, powerlines
+        private readonly int[] medium = { 3, 4, 5, 6, 7, 8 }; // 3x3 - zones, police and fire station
+        private readonly int[] large  = { 6, 9 };             // 4x4 - stadium powerplant
+
         public ObservableCollection<TileViewModel> Tiles { get; set; }
 
         public DelegateCommand NewCommand { get; private set; }
@@ -94,7 +98,27 @@ namespace Game.WPF.ViewModels
         private void OnTileClick(int i)
         {
             var tile = Tiles[i];
-            if (tile.IsAvailable || ActiveTile == 0) tile.Type = ActiveTile;
+            
+            if (tile.IsAvailable || ActiveTile == 0)
+            {
+                int x = tile.X;
+                int y = tile.Y;
+
+                int bound = 0;
+                if (small.Contains(ActiveTile) ) { bound = 1; }
+                if (medium.Contains(ActiveTile)) { bound = 3; }
+                if (large.Contains(ActiveTile) ) { bound = 4; }
+
+                for (int j = x; j < x + bound && j < Size; j++)
+                {
+                    for (int k = y; k < y + bound && k < Size; k++)
+                    {
+                        Tiles[j * Size + k].Type = ActiveTile;
+                    }
+                }
+            }
+
+            // TODO: event for model (should send the coordinates above)
         }
 
         private void SetActiveTile(int value)
