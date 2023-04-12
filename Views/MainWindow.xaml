@@ -9,30 +9,26 @@
         WindowStartupLocation="CenterScreen"
         Width="auto"
         Height="640" d:DesignHeight="600" d:DesignWidth="815">
+
 <DockPanel>
     <Menu DockPanel.Dock="Top">
-        <MenuItem Header="_Game">
-            <MenuItem Header="_New" />
-            <MenuItem Header="_Open..." />
-            <Separator />
-            <MenuItem Header="_Save" />
-            <MenuItem Header="Save _As..." />
-            <Separator />
-            <MenuItem Header="E_xit" />
+        <MenuItem Header="Game">
+            <MenuItem Header="New"/>
+            <MenuItem Header="Load"/>
+            <Separator/>
+            <MenuItem Header="Save"/>
+            <Separator/>
+            <MenuItem Header="Exit"/>
         </MenuItem>
-        <MenuItem Header="_Settings">
-            <MenuItem Header="_Undo" />
-            <MenuItem Header="_Redo" />
-            <Separator />
-            <MenuItem Header="Cu_t" />
-            <MenuItem Header="_Copy" />
-            <MenuItem Header="_Paste" />
-            <MenuItem Header="_Delete" />
-            <Separator />
-            <MenuItem Header="Select _All" />
+        <MenuItem Header="Settings">
+            <MenuItem Header="Game Size"/>
+            <Separator/>
+            <MenuItem Header="Starting Funds"/>
+            <Separator/>
+            <MenuItem Header="Other"/>
         </MenuItem>
-        <MenuItem Header="_Help">
-            <MenuItem Header="_About"/>
+        <MenuItem Header="Help">
+            <MenuItem Header="About"/>
         </MenuItem>
     </Menu>
 
@@ -46,116 +42,99 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <ItemsControl Grid.Row="0" Grid.Column="1"  ItemsSource="{Binding Fields}">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.Row="0" Grid.Column="1">
+        <ItemsControl ItemsSource="{Binding Tiles}" Height="1500" Width="1500">
             <!--az mezőket tároló vezérlő-->
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <!--a gombokat egy rácsba fűzzük fel-->
-                    <UniformGrid Rows="100" Columns="25" />
+                    <UniformGrid Rows="50" Columns="50"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <!--az elemek gombok lesznek-->
                 <DataTemplate>
-                    <Button Command="{Binding StepCommand}" CommandParameter="{Binding Number}" Focusable="False" RenderTransformOrigin="0.5, 0.5" FontSize="24" FontWeight="Bold">
-                        <!-- gomb háttérszíne -->
-                        <!-- gomb méretezése (csak az animációnál használjuk ki) -->
-                        <Button.RenderTransform>
-                            <ScaleTransform ScaleX="1" ScaleY="1" />
-                        </Button.RenderTransform>
+                    <Button Command="{Binding ClickCommand}" CommandParameter="{Binding Number}" Focusable="False" RenderTransformOrigin="0.5, 0.5" FontSize="24" FontWeight="Bold" Width="30" Height="30">
                         <Button.Style>
                             <!-- gomb stílusa, ahol a színét megadjuk -->
                             <Style TargetType="Button">
                                 <Style.Triggers>
                                     <!-- a szín egy adatkötés hatására fog változni -->
-                                    <DataTrigger Binding="{Binding FieldType}" Value="1">
+                                    <DataTrigger Binding="{Binding Type}" Value="0">
+                                        <!--semmi-->
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Type}" Value="1">
                                         <!--út-->
-                                        <Setter Property="Background" Value="Gray" />
+                                        <Setter Property="Background" Value="Gray"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="2">
+                                    <DataTrigger Binding="{Binding Type}" Value="2">
                                         <!--vezeték-->
-                                        <Setter Property="Background" Value="Yellow" />
+                                        <Setter Property="Background" Value="Orange"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="3">
-                                        <!--erőmű-->
-                                        <Setter Property="Background" Value="green" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="4">
+                                    <DataTrigger Binding="{Binding Type}" Value="3">
                                         <!--lakóövezet-->
-                                        <Setter Property="Background" Value="LightBlue" />
+                                        <Setter Property="Background" Value="green"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="5">
+                                    <DataTrigger Binding="{Binding Type}" Value="4">
                                         <!--szolgáltatóövezet-->
-                                        <Setter Property="Background" Value="pink" />
+                                        <Setter Property="Background" Value="Blue"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="6">
+                                    <DataTrigger Binding="{Binding Type}" Value="5">
                                         <!--ipariövezet-->
-                                        <Setter Property="Background" Value="SandyBrown" />
+                                        <Setter Property="Background" Value="Yellow"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="7">
+                                    <DataTrigger Binding="{Binding Type}" Value="6">
+                                        <!--erőmű-->
+                                        <Setter Property="Background" Value="SandyBrown"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Type}" Value="9">
                                         <!--stadion-->
-                                        <Setter Property="Background" Value="Purple" />
+                                        <Setter Property="Background" Value="Purple"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="8">
+                                    <DataTrigger Binding="{Binding Type}" Value="7">
                                         <!--tűzoltóság-->
-                                        <Setter Property="Background" Value="red" />
+                                        <Setter Property="Background" Value="red"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding FieldType}" Value="9">
+                                    <DataTrigger Binding="{Binding Type}" Value="8">
                                         <!--rendőrség-->
-                                        <Setter Property="Background" Value="blue" />
+                                        <Setter Property="Background" Value="DarkBlue"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
                         <Button.Triggers>
-                            <!-- animációk végrehajtása esemény hatására -->
-                            <EventTrigger RoutedEvent="Button.Loaded">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Duration="0:00:02" From="0" To="1" Storyboard.TargetProperty="Opacity" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Duration="0:00:00.2" Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)">
-                                            <ColorAnimationUsingKeyFrames.KeyFrames>
-                                                <DiscreteColorKeyFrame Value="Red" KeyTime="0:00:00" />
-                                                <DiscreteColorKeyFrame Value="Black" KeyTime="0:00:00.2" />
-                                            </ColorAnimationUsingKeyFrames.KeyFrames>
-                                        </ColorAnimationUsingKeyFrames>
-                                        <DoubleAnimation Duration="0:00:00.1" From="1" To="0.5" AutoReverse="True" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)" />
-                                        <DoubleAnimation Duration="0:00:00.1" From="1" To="0.5" AutoReverse="True" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
+                            
                         </Button.Triggers>
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
-                <!--a függőségi tulajdonságokat kjülön kell kötnünk-->
+                <!--a függőségi tulajdonságokat külön kell kötnünk-->
                 <Style>
-                    <Setter Property="Grid.Row" Value="{Binding X}" />
-                    <Setter Property="Grid.Column" Value="{Binding Y}" />
+                    <Setter Property="Grid.Row"    Value="{Binding X}"/>
+                    <Setter Property="Grid.Column" Value="{Binding Y}"/>
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
+        </ScrollViewer>
 
         <StatusBar HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
             <StatusBarItem HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Button x:Name="Startstatus" Height="40" Width="40" Content="S"/>
+                <Button x:Name="Startstatus" Height="40" Width="42" Content="S"/>
             </StatusBarItem>
+            <Separator/>
             <StatusBarItem HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Button x:Name="Startstatus2" Height="40" Width="40" Content="P"/>
+                <Button x:Name="Startstatus2" Height="40" Width="42" Content="P"/>
             </StatusBarItem>
+            <Separator/>
             <StatusBarItem HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Button x:Name="Startstatus3" Height="40" Width="40" Content="SU"/>
+                <Button x:Name="Startstatus3" Height="40" Width="42" Content="SU"/>
             </StatusBarItem>
         </StatusBar>
         
         <StatusBar HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1">
+            <Separator/>
             <StatusBarItem HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Label>Datum</Label>
             </StatusBarItem>
@@ -178,30 +157,31 @@
         </StatusBar>
 
         <WrapPanel HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0">
-        <Button x:Name="road" Height="80" Width="80" Content="Road" Command="{Binding Actual}" CommandParameter="1"/>
-        <Button x:Name="power_line" Height="80" Width="80" Content="Power Line" Command="{Binding Actual}" CommandParameter="2"/>
-        <Button x:Name="power_plant" Height="80" Width="80" Content="Power Plant" Command="{Binding Actual}" CommandParameter="3"/>
-        <Button x:Name="commercial" Height="80" Width="80" Content="Commercial" Command="{Binding Actual}" CommandParameter="4"/>
-        <Button x:Name="industrial" Height="80" Width="80" Content="Industrial" Command="{Binding Actual}" CommandParameter="5"/>
-        <Button x:Name="residental" Height="80" Width="80" Content="Residental" Command="{Binding Actual}" CommandParameter="6"/>
-        <Button x:Name="stadium" Height="80" Width="80" Content="Stadium" Command="{Binding Actual}" CommandParameter="7"/>
-        <Button x:Name="firestation" Height="80" Width="80" Content="Fire station" Command="{Binding Actual}" CommandParameter="8"/>
-        <Button x:Name="police" Height="80" Width="80" Content="Police" Command="{Binding Actual}" CommandParameter="9"/>
-        <Button x:Name="bulldoze" Height="80" Width="80" Content="Bulldoze" Command="{Binding Actual}" CommandParameter="0"/>
-        <Label>Commercial:</Label>
-        <TextBlock Text="{Binding ElementName=commercial_pbstatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <Button x:Name="road"          Height="80" Width="80" Content="Road"          Command="{Binding SetActive}" CommandParameter="1"/>
+            <Button x:Name="powerline"     Height="80" Width="80" Content="Power Line"    Command="{Binding SetActive}" CommandParameter="2"/>
+            <Button x:Name="residental"    Height="80" Width="80" Content="Residental"    Command="{Binding SetActive}" CommandParameter="3"/>
+            <Button x:Name="commercial"    Height="80" Width="80" Content="Commercial"    Command="{Binding SetActive}" CommandParameter="4"/>
+            <Button x:Name="industrial"    Height="80" Width="80" Content="Industrial"    Command="{Binding SetActive}" CommandParameter="5"/>
+            <Button x:Name="powerplant"    Height="80" Width="80" Content="Power Plant"   Command="{Binding SetActive}" CommandParameter="6"/>
+            <Button x:Name="firestation"   Height="80" Width="80" Content="Fire Station"  Command="{Binding SetActive}" CommandParameter="7"/>
+            <Button x:Name="policestation" Height="80" Width="80" Content="Police Staion" Command="{Binding SetActive}" CommandParameter="8"/>
+            <Button x:Name="stadium"       Height="80" Width="80" Content="Stadium"       Command="{Binding SetActive}" CommandParameter="9"/>
+            <Button x:Name="bulldoze"      Height="80" Width="80" Content="Bulldoze"      Command="{Binding SetActive}" CommandParameter="0"/>
+            
+            <Label>Commercial:</Label>
+            <TextBlock Text="{Binding ElementName=commercial_pbstatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
-        <ProgressBar Minimum="0" Maximum="100" Name="commercial_pbstatus" Width="160" Height="15" Value="75" />
+            <ProgressBar Minimum="0" Maximum="100" Name="commercial_pbstatus" Width="160" Height="15" Value="75" />
 
-        <Label>Industrial:</Label>
-        <TextBlock Text="{Binding ElementName=industrial_pbstatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <Label>Industrial:</Label>
+            <TextBlock Text="{Binding ElementName=industrial_pbstatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
-        <ProgressBar Minimum="0" Maximum="100" Name="industrial_pbstatus" Width="160" Height="15" Value="75"/>
-        <Label>Residental:</Label>
-        <TextBlock Text="{Binding ElementName=residental_pbstatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <ProgressBar Minimum="0" Maximum="100" Name="industrial_pbstatus" Width="160" Height="15" Value="75"/>
+            <Label>Residental:</Label>
+            <TextBlock Text="{Binding ElementName=residental_pbstatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
-        <ProgressBar Minimum="0" Maximum="100" Name="residental_pbstatus" Width="160" Height="15" Value="75"/>
-    </WrapPanel>
+            <ProgressBar Minimum="0" Maximum="100" Name="residental_pbstatus" Width="160" Height="15" Value="75"/>
+        </WrapPanel>
     </Grid>
 </DockPanel>
     

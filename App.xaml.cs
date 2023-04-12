@@ -25,16 +25,8 @@ namespace Game.WPF
 
         private void App_Startup(object? sender, StartupEventArgs e)
         {
-            _view = new StartWindow();
-            //_view.DataContext = _viewModel; // TODO
-            //_view.Closing += new CancelEventHandler(View_Closing); // eseménykezelés a bezáráshoz
+            _view = new StartWindow(); // start window may also need a separate view model
             _view.Show();
-        }
-
-        // View closing event handler
-        private void View_Closing(object? sender, CancelEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         // Timer tick event handler

@@ -12,10 +12,7 @@ namespace Game.WPF.ViewModels
 
         protected virtual void OnPropertyChanged([CallerMemberName] String? propertyName = null)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -8,28 +8,23 @@
         Title="StartWindow" Height="450" Width="800">
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Game">
-                <MenuItem Header="_New" />
-                <MenuItem Header="_Open..." />
-                <Separator />
-                <MenuItem Header="_Save" />
-                <MenuItem Header="Save _As..." />
-                <Separator />
-                <MenuItem Header="E_xit" />
+            <MenuItem Header="Game">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Load"/>
+                <Separator/>
+                <MenuItem Header="Save"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
             </MenuItem>
-            <MenuItem Header="_Settings">
-                <MenuItem Header="_Undo" />
-                <MenuItem Header="_Redo" />
-                <Separator />
-                <MenuItem Header="Cu_t" />
-                <MenuItem Header="_Copy" />
-                <MenuItem Header="_Paste" />
-                <MenuItem Header="_Delete" />
-                <Separator />
-                <MenuItem Header="Select _All" />
+            <MenuItem Header="Settings">
+                <MenuItem Header="Game Size"/>
+                <Separator/>
+                <MenuItem Header="Starting Funds"/>
+                <Separator/>
+                <MenuItem Header="Other"/>
             </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="_About"/>
+            <MenuItem Header="Help">
+                <MenuItem Header="About"/>
             </MenuItem>
         </Menu>
 

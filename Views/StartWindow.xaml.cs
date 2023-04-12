@@ -1,4 +1,5 @@
-﻿using System;
+﻿// TODO: this with MVVM
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Game.WPF.ViewModels;
 
 namespace Game.WPF.Views
 {
@@ -26,8 +28,11 @@ namespace Game.WPF.Views
 
         private void Click_start(object sender, RoutedEventArgs e)
         {
-            MainWindow win = new MainWindow(); win.Show(); // TODO: this with mvvm
-            this.Close();
+            GameViewModel gameViewModel = new();
+            MainWindow window = new();
+            window.DataContext = gameViewModel;
+            window.Show();
+            //Close();
         }
     }
 }
